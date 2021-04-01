@@ -1,18 +1,20 @@
 
-//функция определения поддержки WebP
-function testWebP(callback) {
-  var webP = new Image();
-  webP.onload = webP.onerror = function () {
-    callback(webP.height == 2);
-  };
-  webP.src =
-    "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA";
+function togglePanel(panel, openButton) {
+    const openBtn = document.querySelector(openButton);
+    const modal = document.querySelector(panel);     
+    console.log (modal);
+    console.log (openBtn);
+    openBtn.addEventListener("click",(e) => {
+        e.preventDefault();
+        modal.style.display = "flex";
+        
+        document.body.style.overflow = "hidden";  
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                modal.style.display = "none";
+                document.body.style.overflow = "";                
+            }
+          }); 
+    })
 }
-
-testWebP(function (support) {
-  if (support == true) {
-    document.querySelector("body").classList.add("webp");
-  } else {
-    document.querySelector("body").classList.add("no-webp");
-  }
-});
+  togglePanel(".panel", ".hamburger");
